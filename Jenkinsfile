@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('clone Repo') {
             steps {
-               git([url: 'https://github.com/toby4all/first_project_python.git', branch: 'main'])
+               git([url: 'https://github.com/toby4all/docker_myhubImage', branch: 'main'])
             }
         }
         stage('Build and push image') {
