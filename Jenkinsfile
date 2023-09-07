@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        dockerfile true
+    }
     environment {
         registry = "toby4all/tobby_pipeline"  // The name of your user and repository (which can be created manually)
         registryCredential =credentials('docker_hub') // The credentials used for your Docker Hub repository
