@@ -6,13 +6,11 @@ pipeline {
         dockerImage = "" // Will be overridden later
     }
     stages {
-        stage('clone Repo'){
-           steps {
-               script {
-                   git 'https://github.com/toby4all/docker_myhubImage.git'
-                  }
-               }
-           }
+        stage('clone Repo') {
+            steps {
+               git([url: 'https://github.com/toby4all/first_project_python.git', branch: 'main'])
+            }
+        }
         stage('Build and push image') {
             steps {
                 script {
