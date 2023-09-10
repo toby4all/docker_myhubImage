@@ -1,9 +1,8 @@
 pipeline {
     agent any
     environment {
-        registry = "toby4all/tobby_pipeline"  // The name of your user and repository (which can be created manually)
-        registryCredential =credentials('docker_hub') // The credentials used for your Docker Hub repository
-        dockerImage = "" // Will be overridden later
+       registry = "toby4all/tobby_pipeline"  // The name of your user and repository (which can be created manually)
+       DOCKERHUB_CREDENTIALS = credentials('docker_hub')
     }
     stages {
         stage('clone Repo') {
@@ -11,22 +10,25 @@ pipeline {
                git([url: 'https://github.com/toby4all/docker_myhubImage', branch: 'main'])
             }
         }
-        stage('Build and push image') {
+        stage('Build') {
             steps {
-                script {
-                    dockerImage = docker.build("${registry}:${BUILD_NUMBER}") // Give a name and version to the image
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        dockerImage.push() // Push the image to Docker Hub
-                    }
-                }
+               bat 'docker build -t toby4all/tobby_pipeline .'
+           }
+        }
+        stage('Login') {
+           steps {
+              bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+           }
+        }
+        stage('Push') {
+            steps {
+               bat 'docker push toby4all/tobby_pipeline'
             }
-            post {
-                always {
-                    script {
-                        bat "docker rmi ${registry}:${BUILD_NUMBER}" // Delete the local image at the end
-                    }
-                }
-            }
+        }
+    }
+    post {
+        always {
+           bat "docker rmi ${registry}:${BUILD_NUMBER}" // Delete the local image at the end
         }
     }
 }
