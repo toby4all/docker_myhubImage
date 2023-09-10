@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
        registry = "toby4all/tobby_pipeline"  // The name of your user and repository (which can be created manually)
-       DOCKERHUB_CREDENTIALS = credentials('docker_hub')
+       DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     stages {
         stage('clone Repo') {
