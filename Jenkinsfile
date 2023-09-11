@@ -30,7 +30,7 @@ pipeline {
     }
     post {
         always {
-            bat "docker rmi ${registry}:${BUILD_NUMBER}"
+            bat "docker rmi ${registry}:latest"
         }
     }
 }
