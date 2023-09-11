@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'docker build -t toby4all/tobby_pipeline:${registry.BUILD_NUMBER} .'
+                bat 'docker build -t toby4all/tobby_pipeline:${env.BUILD_NUMBER} .'
             }
         }
         stage('Login') {
@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Push') {
             steps {
-                bat 'docker push toby4all/tobby_pipeline:${registry.BUILD_NUMBER}'
+                bat 'docker push toby4all/tobby_pipeline:${env.BUILD_NUMBER}'
             }
         }
     }
