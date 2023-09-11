@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'docker build -t toby4all/tobby_pipeline.'
+                bat 'docker build -t toby4all/tobby_pipeline .'
             }
         }
         stage('Login') {
