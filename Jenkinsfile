@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'docker build -t toby4all/tobby_pipeline:latest .'
+                bat 'docker build -t toby4all/tobby_pipeline:${env.BUILD_ID} .'
             }
         }
         stage('Login') {
@@ -24,13 +24,13 @@ pipeline {
         }
         stage('Push') {
             steps {
-                bat 'docker push toby4all/tobby_pipeline:latest'
+                bat 'docker push toby4all/tobby_pipeline:${env.BUILD_ID}'
             }
         }
     }
     post {
         always {
-            bat "docker rmi ${registry}:latest"
+            bat "docker rmi ${registry}:${env.BUILD_ID}"
         }
     }
 }
