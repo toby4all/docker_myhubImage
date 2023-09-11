@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/toby4all/docker_myhubImage', branch: 'ain'
+                git url: 'https://github.com/toby4all/docker_myhubImage', branch: 'main'
             }
         }
         stage('Build') {
